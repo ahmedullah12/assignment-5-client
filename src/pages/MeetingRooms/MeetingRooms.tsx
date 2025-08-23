@@ -1,3 +1,4 @@
+import Chatbot from "@/components/Rooms/ChatBot";
 import RoomCard from "@/components/Rooms/RoomCard";
 import RoomCardSkeleton from "@/components/Rooms/RoomCardSkeleton";
 import RoomFilters from "@/components/Rooms/RoomFilters";
@@ -107,6 +108,9 @@ const MeetingRooms = () => {
               ))}
           </div>
         )}
+      </div>
+      <div>
+        <Chatbot/>
       </div>
     </div>
   );

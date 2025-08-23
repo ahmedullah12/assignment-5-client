@@ -9,8 +9,8 @@ const roomApi = baseApi.injectEndpoints({
         if (price) params.append("price", price);
         if (capacity) params.append("capacity", capacity);
         if (sort) params.append("sort", sort);
-        if(page) params.append("page", page);
-        if(limit) params.append("limit", limit);
+        if (page) params.append("page", page);
+        if (limit) params.append("limit", limit);
 
         return {
           url: `/rooms?${params.toString()}`,
@@ -24,7 +24,7 @@ const roomApi = baseApi.injectEndpoints({
         url: `/rooms/${id}`,
         method: "GET",
       }),
-      providesTags: ["Rooms"]
+      providesTags: ["Rooms"],
     }),
     createRoom: builder.mutation({
       query: (payload) => ({
@@ -49,6 +49,24 @@ const roomApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Rooms"],
     }),
+    getAllMessages: builder.query({
+      query: ({ userId }) => ({
+        url: `/rooms/chat/messages/${userId}`,
+        method: "GET",
+      }),
+      providesTags: ["ChatMessages"],
+    }),
+    sendMessage: builder.mutation({
+      query: (payload) => {
+        console.log(payload);
+        return {
+          url: "/rooms/chat/message",
+          method: "POST",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["ChatMessages"],
+    }),
   }),
 });
 
@@ -58,4 +76,6 @@ export const {
   useCreateRoomMutation,
   useDeleteRoomMutation,
   useUpdateRoomMutation,
+  useGetAllMessagesQuery,
+  useSendMessageMutation,
 } = roomApi;
